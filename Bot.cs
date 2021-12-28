@@ -18,6 +18,7 @@ namespace flipBot
         private readonly string[] doneCommands = { "выполнил", "завершил", "закончил", "готово", "сделал" };
         private readonly string[] botAnswers = {"Весь во внимании.", "Да, я слушаю.", "Чем я могу Вам помочь?", "Я Вас слушаю.", "Я здесь.", "Что желаете?" };
         private readonly string[] botNotes = { "добавь заметку", "добавь напоминание", "добавь запись", "запиши заметку", "запиши напоминание", "запиши запись" };
+        private readonly string[] botDeleteNotes = { "удали заметку", "удали напоминание", "удали запись"};
         private readonly string[] printNotes = { "заметки", "напоминание", "запись"};
         private readonly string[] botSettings = { "настройки", "параметры"};
         //reansfers
@@ -150,12 +151,26 @@ namespace flipBot
                             }
                             else
                             {
-                                string noteKey = isKeyWord(normalizedSentence, botNotes);
-                                if (noteKey != null)
+                                if (isKeyWord(normalizedSentence, botNotes) != null)
                                 {
                                     Console.WriteLine("Напишите заметку:");
                                     string note = Console.ReadLine();
                                     notes.Add(note);
+                                }
+                                else if (isKeyWord(normalizedSentence, botDeleteNotes) != null)
+                                {
+                                    Console.WriteLine("Введите номер заметки, которую нужно удалить:");
+                                    byte noteIndex;
+                                    try 
+                                    {
+                                        noteIndex = (byte)(byte.Parse(NormalizeSentence(Console.ReadLine())) - 1);
+                                        notes.list.RemoveAt(noteIndex);
+                                        Console.WriteLine(PrintNotes(notes.list));
+                                    }
+                                    catch
+                                    {
+                                        Console.WriteLine("Неверное номер заметки!");
+                                    }
                                 }
                                 else
                                 {
