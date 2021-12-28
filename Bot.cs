@@ -238,7 +238,7 @@ namespace flipBot
             Console.WriteLine("Помните, что это влияет на производительность бота.");
             try
             {
-                endValue = byte.Parse(Console.ReadLine());
+                endValue = byte.Parse(NormalizeSentence(Console.ReadLine()));
                 if (endValue <= 50)
                 {
                     Console.WriteLine($"Максимальное число {phraze} = {endValue}");
@@ -277,7 +277,7 @@ namespace flipBot
             string result = "";
             if (array.Count > 0)
             {
-                result += "Текущие задачи: \n";
+                result += "Текущие заметки: \n";
                 for (byte i = 0; i < array.Count; i++)
                 {
                     result += $"{i+1}) {array[i]}\n";
